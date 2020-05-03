@@ -26,5 +26,5 @@ jobs:
       - name: Test gosu with Golang
         run: |
           ./build.sh
-          ./gosu-amd64 root script/install-runc
+          sudo script/install-runc
         working-directory: src/github.com/fahedouch/gosu
