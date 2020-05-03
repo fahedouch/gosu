@@ -16,5 +16,6 @@ jobs:
       - name: Test gosu with Golang
         run: |
           echo $PWD
-          ./build.sh
+          ls
+          $PWD/build.sh
           gosu root script/install-runc
