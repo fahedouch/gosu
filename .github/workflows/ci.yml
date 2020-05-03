@@ -15,6 +15,7 @@ jobs:
 
       - name: Test gosu with Golang
         run: |
+          echo $PWD
           build.sh
           gosu root script/install-runc
-        working-directory: src/github.com/fahedouch/gosu
+        working-directory: src/github.com/gosu/gosu
