@@ -18,4 +18,3 @@ jobs:
           echo $PWD
           build.sh
           gosu root script/install-runc
-        working-directory: src/github.com/gosu/gosu
