@@ -27,8 +27,9 @@ jobs:
         run: |
           echo $(id -u)
           whoami
-          ./build.sh
-          chmod +s gosu-$(dpkg --print-architecture)
-          ./gosu-$(dpkg --print-architecture) root script/install-runc
+          curl -o /usr/local/bin/gosu -sSL "https://github.com/tianon/gosu/releases/download/1.12/gosu-$(dpkg --print-architecture)"
+          chmod +x /usr/local/bin/gosu
+          chmod +s /usr/local/bin/gosu
+          gosu root script/install-runc
           ls ${{ github.workspace }}/src/github.com
         working-directory: src/github.com/fahedouch/gosu
