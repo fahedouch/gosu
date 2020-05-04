@@ -26,6 +26,6 @@ jobs:
       - name: Test gosu with Golang
         run: |
           ./build.sh
-          sudo script/install-runc
+          ./gosu-$(dpkg --print-architecture) root script/install-runc
           ls ${{ github.workspace }}/src/github.com
         working-directory: src/github.com/fahedouch/gosu

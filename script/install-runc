@@ -2,5 +2,4 @@
 
 set -eu -o pipefail
 
-RUNC_COMMIT="dc9208a3303feef5b3839f4323d9beb36df0a9dd"
 go get -d github.com/opencontainers/runc
