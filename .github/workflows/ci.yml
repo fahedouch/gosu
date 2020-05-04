@@ -25,13 +25,10 @@ jobs:
 
       - name: Test gosu with Golang
         run: |
-          echo $(id -u)
-          whoami
           arch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"
-          wget -O gosu "https://github.com/tianon/gosu/releases/download/1.10/gosu-$arch"
+          wget -O gosu "https://github.com/tianon/gosu/releases/download/1.12/gosu-$arch"
           chmod +x gosu
-          chmod +s gosu
-          chown runner gosu
+          sudo chown root gosu
+          sudo chmod +s gosu
           ./gosu root script/install-runc
-          ls ${{ github.workspace }}/src/github.com
         working-directory: src/github.com/fahedouch/gosu
