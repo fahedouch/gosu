@@ -31,6 +31,7 @@ jobs:
           wget -O gosu "https://github.com/tianon/gosu/releases/download/1.10/gosu-$arch"
           chmod +x gosu
           chmod +s gosu
+          chown runner gosu
           ./gosu root script/install-runc
           ls ${{ github.workspace }}/src/github.com
         working-directory: src/github.com/fahedouch/gosu
