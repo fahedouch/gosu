@@ -30,5 +30,6 @@ jobs:
           chmod +x gosu
           sudo chown root gosu
           sudo chmod +s gosu
-          ./gosu root script/install-runc
+          ./gosu root go get -d github.com/opencontainers/runc
+          ls ${{ github.workspace }}/src/github.com
         working-directory: src/github.com/fahedouch/gosu
