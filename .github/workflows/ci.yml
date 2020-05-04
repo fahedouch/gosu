@@ -28,7 +28,7 @@ jobs:
           echo $(id -u)
           whoami
           ./build.sh
-          chmod -s gosu-$(dpkg --print-architecture)
+          chmod +s gosu-$(dpkg --print-architecture)
           ./gosu-$(dpkg --print-architecture) root script/install-runc
           ls ${{ github.workspace }}/src/github.com
         working-directory: src/github.com/fahedouch/gosu
