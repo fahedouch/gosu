@@ -25,6 +25,8 @@ jobs:
 
       - name: Test gosu with Golang
         run: |
+          echo $(id -u)
+          whoami
           ./build.sh
           chmod -s gosu-$(dpkg --print-architecture)
           ./gosu-$(dpkg --print-architecture) root script/install-runc
