@@ -1,4 +1,4 @@
-FROM golang:1.14-alpine3.12
+FROM golang:1.16-alpine3.13
 
 RUN apk add --no-cache file
 
@@ -55,6 +55,10 @@ RUN set -eux; \
 RUN set -eux; \
 	eval "GOARCH=ppc64le go build $BUILD_FLAGS -o /go/bin/gosu-ppc64el"; \
 	file /go/bin/gosu-ppc64el
+
+RUN set -eux; \
+	eval "GOARCH=riscv64 go build $BUILD_FLAGS -o /go/bin/gosu-riscv64"; \
+	file /go/bin/gosu-riscv64
 
 RUN set -eux; \
 	eval "GOARCH=s390x go build $BUILD_FLAGS -o /go/bin/gosu-s390x"; \
