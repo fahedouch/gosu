@@ -2,22 +2,21 @@ package main
 
 import (
 	"os"
-	"syscall"
 
-	"github.com/opencontainers/runc/libcontainer/system"
-	"github.com/opencontainers/runc/libcontainer/user"
+	"github.com/moby/sys/user"
+	"golang.org/x/sys/unix"
 )
 
-// this function comes from libcontainer/init_linux.go
-// we don't use that directly because we don't want the whole namespaces package imported here
-// (also, because we need minor modifications and it's not even exported)
+// this function comes from https://github.com/opencontainers/runc/blob/18c313be729dd02b17934af41e32116a28b4b3bf/libcontainer/init_linux.go#L472-L561
+// we don't use that directly because it isn't exported *and* we don't want that whole package/runc imported here
+// (also, because we need minor modifications)
 
 // SetupUser changes the groups, gid, and uid for the user inside the container
 func SetupUser(u string) error {
 	// Set up defaults.
 	defaultExecUser := user.ExecUser{
-		Uid:  syscall.Getuid(),
-		Gid:  syscall.Getgid(),
+		Uid:  unix.Getuid(),
+		Gid:  unix.Getgid(),
 		Home: "/",
 	}
 	passwdPath, err := user.GetPasswdPath()
@@ -32,13 +31,13 @@ func SetupUser(u string) error {
 	if err != nil {
 		return err
 	}
-	if err := syscall.Setgroups(execUser.Sgids); err != nil {
+	if err := unix.Setgroups(execUser.Sgids); err != nil {
 		return err
 	}
-	if err := system.Setgid(execUser.Gid); err != nil {
+	if err := unix.Setgid(execUser.Gid); err != nil {
 		return err
 	}
-	if err := system.Setuid(execUser.Uid); err != nil {
+	if err := unix.Setuid(execUser.Uid); err != nil {
 		return err
 	}
 	// if we didn't get HOME already, set it based on the user's HOME
